@@ -1,0 +1,50 @@
+------------------------------------------------------------Database config file - config_db
+
+
+mysql_conn_info = {'host': '111.222.333.4444',
+                    'port': 3333,
+                    'user': 'your_login',
+                    'password': 'your_password',
+                    'database': 'database_name'}
+
+
+-------------------------------------------------------------Connect to database send some query
+
+
+import sys, os # python 3.7.3
+import csv, json, time
+import datetime as dt
+import pymysql
+from config_db import mysql_conn_info
+
+
+def mysql_table(start_date, end_date):
+    this_function_name = sys._getframe().f_code.co_name
+    try:
+        connection = pymysql.connect(**mysql_conn_info)
+        cursor = connection.cursor()
+        sql = """SELECT *
+                FROM your_table AS yt
+                WHERE yt.created_at BETWEEN '{A}' AND '{B}'
+                LIMIT 100
+                ;""".format(A=start_date, B=end_date)
+        cursor.execute(sql)
+        if cursor.rowcount>0:
+            table_rows = cursor.fetchall()
+        cursor.close()
+        connection.close()
+        print(table_rows)
+    except Exception as err:
+        print(f'Function {this_function_name} error in MySQL query: {err}')
+        return f'Function {this_function_name} error in MySQL query: {err}'
+
+
+def main():
+    start = dt.datetime.now()
+    mysql_table(start_date='2020-10-01 00:00:00', end_date='2020-10-02 00:00:00')
+    end = dt.datetime.now()
+    print(f'Script {os.path.basename(__file__)} finished. Execution time: {(end - start).seconds}')
+
+
+if __name__ == '__main__':
+    main()
