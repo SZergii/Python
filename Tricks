@@ -1,0 +1,3 @@
+------------------Update card_last4 if missed one or more nulls before number
+card_last4 = 6
+print(str(card_last4).zfill(4))
