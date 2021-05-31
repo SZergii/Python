@@ -1,0 +1,77 @@
+import sys, os #python 3.7.3
+import time, csv, json
+import datetime as dt
+import numpy as np
+import pandas as pd
+
+start = dt.datetime.now()
+
+def find_cardholder():
+
+	df = pd.read_csv(r'C:\Users\User_Name\Documents\Scripts\y.csv', encoding='latin-1')
+	print(df)
+	# df['TransactionId'] = '1'
+	# columns = df.columns.tolist()
+	# print(columns)
+	columns = ['ShortId', 'RequestTimestamp', 'UniqueId', 'ChannelName', 'AccountHolder', 'RegistrationId', 'ConnectorDetails', 'PaymentType', 'TransactionId', 'CustomerCountry', 'AccountCountry', 'AccountNumberLast4', 'ReturnCode', 'Brand', 'Debit', 'Credit', 'Currency', 'Result', 'MerchantAccountId', 'Bin', 'project_id', 'k_transaction_id']
+	# df = df.loc[:,columns]
+	df = df.reindex(columns, axis='columns')
+	print(df)
+	sub_1 = 'CardholderInitiatedTransactionID"'
+	sub_2 = 'ConnectorTxID3"'
+	print(len(df.index))
+	index_list = []
+
+	for ind in df.index:
+		string = df.iloc[ind]['ConnectorDetails']
+		start_position = string.find(sub_1)
+		if start_position >= 0:			
+			end_position = start_position + 51
+			# print(string)
+			print(ind, start_position, end_position)
+			x = string[start_position:end_position]
+			print(x)
+			index_list.append((ind, x))
+		elif start_position < 0:
+			start_position_1 = string.find(sub_2)
+			if start_position_1 >= 0:
+				end_position = start_position_1 + 33
+				# print(string)
+				print(ind, start_position_1, end_position)
+				x = string[start_position_1:end_position]
+				print(x)
+				index_list.append((ind, x))
+			else:
+				print(string)
+				print(f'index:{ind}, first start position:{start_position}, second start positin: {start_position}')
+				index_list.append((ind, 'N/A'))
+		else:
+			print(string)
+			print(f'index:{ind}, start position:{start_position}')
+			index_list.append((ind, 'N/A'))
+	df_1 = pd.DataFrame(index_list, columns=['df_index','cardholder'])
+	print(df_1)
+	df_1.update(df_1['cardholder'].replace({'CardholderInitiatedTransactionID":"':''}, regex=True))
+	df_1.update(df_1['cardholder'].replace({'ConnectorTxID3":"':''}, regex=True))
+	df_1.update(df_1['cardholder'].replace({'","':''}, regex=True))
+	df_1.update(df_1['cardholder'].replace({'"}':''}, regex=True))
+	df_1.update(df_1['cardholder'].replace({'"':''}, regex=True))
+	print(df_1.iloc[300]['cardholder'])
+	print(df_1)
+	df_result = pd.merge(df, df_1['cardholder'], left_index=True, right_index=True, how="outer")
+	print(df_result)
+	result_columns = df_result.columns.tolist()
+	print(result_columns)
+	df_result.to_csv('x.csv', sep=',', index=False)
+	# print(df)
+
+
+def main():
+	print(f'Script started work at {start}')
+	find_cardholder()
+	end = dt.datetime.now()
+	print(f"Script {os.path.basename(__file__)} finished work at {end}.\nExecution time: {(end - start).seconds} seconds")
+
+
+if __name__ == '__main__':
+	main()
