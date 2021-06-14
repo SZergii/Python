@@ -33,6 +33,7 @@ df = df.loc[df['Id'].isin(list(index_to_keep))]
 
 total_declines_count = df['declines_count'].sum()
 print (f'total_declines_count: {total_declines_count}')
+OUTPUT: total_fraud_declines_count: 5
 
 
 
