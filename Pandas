@@ -19,14 +19,20 @@ df.update(df[0:].replace({'~':''}, regex=True))
 dataframe_id_list = df['Id'].tolist()
 
 
-#Exclude values from first list that contains in second list
+# Exclude values from first list that contains in second list
 
 index_to_keep = set(dataframe_id_list) - set(downloaded_id_list)
 
 
-#Get rows from DataFrame by key or index
+# Get rows from DataFrame by key or index
 
 df = df.loc[df['Id'].isin(list(index_to_keep))]
+
+
+# Get total of Pandas column (https://stackoverflow.com/questions/41286569/get-total-of-pandas-column/41286607)
+
+total_declines_count = df['declines_count'].sum()
+print (f'total_declines_count: {total_declines_count}')
 
 
 
