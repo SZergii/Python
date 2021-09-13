@@ -1,0 +1,18 @@
+def convert_ppttc_to_pptx():
+    this_function_name = sys._getframe().f_code.co_name
+    try:
+        prompt_command = f'cmd /C "ppttc "{ppttc_file_path}" -o "{output_presentation_path}""'
+        if debug:
+            print(prompt_command)
+        os.chdir(thinkcell_installation_path)
+        os.system(prompt_command)
+
+        # file_path_to_convert = os.path.join(thinkcell_installation_path, ppttc_file_name)
+        # if debug:
+        #     print(file_path_to_convert)
+        # cmd commands
+        # copy "C:\Users\sergii\output.pptx" "C:\Users\sergii\test_Think-cell"
+        # move "C:\Users\sergii\output.pptx" "C:\Users\sergii\test_Think-cell"
+        # echo y | copy "C:\Users\sergii\output.pptx" "C:\Users\sergii\test_Think-cell"
+    except Exception as err:
+        print(f'Function {this_function_name} error occurred: {err}')
