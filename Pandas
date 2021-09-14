@@ -35,6 +35,10 @@ total_declines_count = df['declines_count'].sum()
 print (f'total_declines_count: {total_declines_count}')
 OUTPUT: total_fraud_declines_count: 5
 
+# Set the first column as index
+
+df = pd.read_csv('data.csv', index_col=0)
+df = df.set_index(['first_column'])
 
 
 
