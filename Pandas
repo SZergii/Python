@@ -31,6 +31,7 @@ df = pd.read_csv('data.csv', index_col=0)
 df = df.set_index(['first_column'])
 
 ################################################### Get column names from DataFrame
+column_names_list = df.columns.tolist()
 column_names_list = df.columns.values
 column_names_list = list(df.columns)
 column_names_list = df.columns.values.tolist()
