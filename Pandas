@@ -38,7 +38,7 @@ column_names_list = df.columns.values.tolist()
 ################################################### Select Rows of Dataframe based on a single value of a column
 filtered_df = df[df['year']==2002]
 filtered_df = df[df.year.eq(2002)] #not tested
-
+filtered_df = df.loc[df.index == 2002]
 
 
 
