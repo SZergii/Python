@@ -1,45 +1,39 @@
 
-
-# Change DataFrame column datatype
+################################################### Change DataFrame column datatype
 df.dtypes #return the dtypes in the DataFrame.
 df.update(df['id'].astype(str))
 df.update(df['id'].astype(int))
 df.update(df[0:].astype(str)) #update datatype for all columns in DataFrame
 
 
-# Replace in DataFrame columns
-
+################################################### Replace in DataFrame columns
 df.update(df['Address'].replace({'~':''}, regex=True))
 df.update(df['Address'].replace({'/n':''}, regex=True))
 df.update(df[0:].replace({'~':''}, regex=True))
 
 
-# Create list from column
-
+################################################### Create list from column
 dataframe_id_list = df['Id'].tolist()
 
-
-# Exclude values from first list that contains in second list
-
+################################################### Exclude values from first list that contains in second list
 index_to_keep = set(dataframe_id_list) - set(downloaded_id_list)
 
-
-# Get rows from DataFrame by key or index
-
+################################################### Get rows from DataFrame by key or index
 df = df.loc[df['Id'].isin(list(index_to_keep))]
 
-
-# Get total of Pandas column (https://stackoverflow.com/questions/41286569/get-total-of-pandas-column/41286607)
-
+################################################### Get total sum of column (https://stackoverflow.com/questions/41286569/get-total-of-pandas-column/41286607)
 total_declines_count = df['declines_count'].sum()
 print (f'total_declines_count: {total_declines_count}')
 OUTPUT: total_fraud_declines_count: 5
 
-# Set the first column as index
-
+################################################### Set the first column as index
 df = pd.read_csv('data.csv', index_col=0)
 df = df.set_index(['first_column'])
 
+################################################### Get column names from DataFrame
+column_names_list = df.columns.values
+column_names_list = list(df.columns)
+column_names_list = df.columns.values.tolist()
 
 
 
