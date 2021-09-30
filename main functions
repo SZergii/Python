@@ -1,0 +1,10 @@
+############################################to iterate over a list
+list = ['ABC Bank', 'PQR Bank', 'XYZ Bank', 'SampleBankLtd', 'Pivat Bank']
+for x in list:
+    print(x)
+for x in range(len(list)):
+    print(x)
+for x in range(0, len(list)):
+    print(x)
+    
+The extend() method adds all the elements of an iterable (list, tuple, string etc.) to the end of the list.
