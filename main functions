@@ -8,3 +8,11 @@ for x in range(0, len(list)):
     print(x)
     
 The extend() method adds all the elements of an iterable (list, tuple, string etc.) to the end of the list.
+
+########################################## dictionary update ########################################################
+# https://stackoverflow.com/questions/19773669/python-dictionary-replace-values
+
+# via dict.update() function
+my_dict.update({'key1': 'value1', 'key2': 'value2'})
+# or like this:
+my_dict.update(key1='value1', key2='value2')
