@@ -21,3 +21,35 @@ my_dict.update(key1='value1', key2='value2')
 
 sum(item['gold'] for item in myList)
 
+######################################## Check if a Key Exists in a dictionary ########################################
+# https://www.geeksforgeeks.org/python-check-given-key-already-exists-in-a-dictionary/
+
+# Using keys() Method
+def checkKey(dic, key):
+    if key in dic.keys():
+        print("Present, ", end =" ")
+        print("value =", dic[key])
+    else:
+        print("Not present")
+
+# Using if and in
+def checkKey(dic, key):
+    if key in dic:
+        print("Present, ", end =" ")
+        print("value =", dic[key])
+    else:
+        print("Not present")
+
+# Using has_key() Method
+def checkKey(dic, key):
+    if dic.has_key(key):
+        print("Present, value =", dic[key])
+    else:
+        print("Not present")
+
+# Using get() Method
+if dic.get('b') == None:
+  print("Not Present")
+else:
+  print("Present")
+
